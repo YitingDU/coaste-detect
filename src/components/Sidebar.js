@@ -1,7 +1,9 @@
+// Sidebar.js
 import React, { useRef, useEffect } from 'react';
 
 function Sidebar({ onFileUpload, uploadedImageFiles, onDeleteImage }) {
     const fileInputRef = useRef(null);
+    const dropzoneRef = useRef(null);
 
     const handleUploadClick = () => {
         fileInputRef.current.click();
@@ -13,22 +15,41 @@ function Sidebar({ onFileUpload, uploadedImageFiles, onDeleteImage }) {
         event.target.value = null;
     };
 
+    const handleDragOver = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        event.dataTransfer.dropEffect = 'copy';
+    };
+
+    const handleDrop = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const files = Array.from(event.dataTransfer.files);
+        onFileUpload(files);
+    };
+
     useEffect(() => {
+        const dropzone = dropzoneRef.current;
+        dropzone.addEventListener('dragover', handleDragOver);
+        dropzone.addEventListener('drop', handleDrop);
+
         return () => {
+            dropzone.removeEventListener('dragover', handleDragOver);
+            dropzone.removeEventListener('drop', handleDrop);
             uploadedImageFiles.forEach(file => URL.revokeObjectURL(file.url));
         };
-    }, [uploadedImageFiles]);
+    }, [uploadedImageFiles, onFileUpload]);
 
     return (
-        <div className="col-3 bg-light left-panel p-3 d-flex flex-column">
-            <h1 className="text-center mb-4">导航菜单</h1>
+        <div ref={dropzoneRef} className="col-3 bg-light left-panel p-3 d-flex flex-column">
+            <h1 className="text-center mb-4">Sider Bar</h1>
             <div className="nav flex-column mb-4">
-                <button className="btn btn-primary mb-2" onClick={handleUploadClick}>上传图像</button>
-                <button className="btn btn-secondary mb-2">查看结果</button>
-                <button className="btn btn-secondary mb-2">设置</button>
+                <button className="btn btn-primary mb-2" onClick={handleUploadClick}>Uplaod Image</button>
+                <button className="btn btn-secondary mb-2">Get Result</button>
+                <button className="btn btn-secondary mb-2">Setting</button>
             </div>
 
-            <h2 className="mb-3">文件上传</h2>
+            <h2 className="mb-3">File Upload</h2>
             <input
                 type="file"
                 multiple
