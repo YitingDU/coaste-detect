@@ -23,10 +23,14 @@ function App() {
         });
     };
 
+    const handleClearImages = () => {
+        setUploadedImageFiles([]);
+    };
+
     return (
         <div className="App container-fluid d-flex flex-column">
             <div className="row flex-grow-1">
-                <Sidebar onFileUpload={handleFileUpload} uploadedImageFiles={uploadedImageFiles} onDeleteImage={handleDeleteImage} />
+                <Sidebar onFileUpload={handleFileUpload} uploadedImageFiles={uploadedImageFiles} onDeleteImage={handleDeleteImage} onClearImages={handleClearImages} />
                 <MainWorkArea uploadedImageFiles={uploadedImageFiles} />
             </div>
         </div>

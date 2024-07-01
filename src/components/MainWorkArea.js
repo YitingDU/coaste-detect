@@ -21,7 +21,7 @@ function MainWorkArea({ uploadedImageFiles }) {
                     </div>
                 ) : (
                     <div className="placeholder d-flex justify-content-center align-items-center flex-grow-1">
-                        <p>没有上传的图片,请上传图片以显示。</p>
+                        <p>Please upload image</p>
                     </div>
                 )}
             </div>

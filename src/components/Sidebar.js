@@ -1,7 +1,7 @@
 // Sidebar.js
 import React, { useRef, useEffect } from 'react';
 
-function Sidebar({ onFileUpload, uploadedImageFiles, onDeleteImage }) {
+function Sidebar({ onFileUpload, uploadedImageFiles, onDeleteImage, onClearImages }) {
     const fileInputRef = useRef(null);
     const dropzoneRef = useRef(null);
 
@@ -42,7 +42,7 @@ function Sidebar({ onFileUpload, uploadedImageFiles, onDeleteImage }) {
 
     return (
         <div ref={dropzoneRef} className="col-3 bg-light left-panel p-3 d-flex flex-column">
-            <h1 className="text-center mb-4">Sider Bar</h1>
+            <h1 className="text-center mb-4">Side Bar</h1>
             <div className="nav flex-column mb-4">
                 <button className="btn btn-primary mb-2" onClick={handleUploadClick}>Uplaod Image</button>
                 <button className="btn btn-secondary mb-2">Get Result</button>
@@ -66,6 +66,8 @@ function Sidebar({ onFileUpload, uploadedImageFiles, onDeleteImage }) {
                     </li>
                 ))}
             </ul>
+            <button className="btn btn-warning" onClick={onClearImages}>Clear</button>
+
         </div>
     );
 }
